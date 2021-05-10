@@ -31,3 +31,6 @@ node_modules
 
 # Test card from unit testing
 test/vCard.vcf
+
+# IDE Files
+.idea
