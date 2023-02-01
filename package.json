@@ -1,5 +1,5 @@
 {
-  "name": "@tapni/vcards-js2",
+  "name": "@tapni/vcards-js",
   "version": "1.0.4",
   "description": "Fork from 'vcards-js' package. Create vCards to import contacts into Outlook, iOS, Mac OS, Android devices, and more.",
   "main": "index.js",
