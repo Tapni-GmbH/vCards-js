@@ -119,6 +119,15 @@ describe("vCard", function () {
   testCard.socialUrls.flickr = "https://flickr/johndoe";
   testCard.socialUrls.custom = "https://custom/johndoe";
 
+  testCard.socialUrls.tapni = "https://my.tapni.co";
+  // OR IF YOU HAVE MULTIPLE SOCIAL URLS FROM SAME SOCIAL NETWORK
+  testCard.socialUrls.tapni = [
+    "https://my.tapni.co",
+    "https://my.tapni.co",
+    "https://my.tapni.co",
+    "https://my.tapni.co",
+  ];
+
   var vCardString = testCard.getFormattedString();
   var lines = vCardString.split(/[\n\r]+/);
 
