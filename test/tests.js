@@ -161,10 +161,10 @@ describe("vCard", function () {
   testCard.socialUrls.tapni = "https://my.tapni.co";
   // OR IF YOU HAVE MULTIPLE SOCIAL URLS FROM SAME SOCIAL NETWORK
   testCard.socialUrls.tapni = [
-    "https://my.tapni.co",
-    "https://my.tapni.co",
-    "https://my.tapni.co",
-    "https://my.tapni.co",
+    "https://t.link",
+    "https://t.link",
+    "https://t.link",
+    "https://t.link",
   ];
 
   var vCardString = testCard.getFormattedString();
