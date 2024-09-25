@@ -46,8 +46,21 @@ describe("vCard", function () {
   testCard.organization = "ACME Corporation";
   testCard.photo.attachFromUrl("https://testurl", "png");
   testCard.logo.attachFromUrl("https://testurl", "png");
-  testCard.workPhone = "312-555-1212";
-  testCard.homePhone = "312-555-1313";
+  testCard.workPhone = [
+    "312-555-1212",
+    {
+      label: "CUSTOM WORK LABEL",
+      number: "312-555-1212",
+    },
+  ]; // OR testCard.workPhone = "312-555-1212";
+
+  testCard.homePhone = [
+    "312-555-1313",
+    {
+      label: "CUSTOM HOME LABEL",
+      number: "312-555-1313",
+    },
+  ]; // OR testCard.homePhone = "312-555-1313";
   testCard.cellPhone = "12345678900";
   testCard.pagerPhone = "312-555-1515";
   testCard.homeFax = "312-555-1616";
@@ -56,10 +69,25 @@ describe("vCard", function () {
   testCard.anniversary = new Date(2018, 11, 1);
   testCard.title = "Crash Test Dummy";
   testCard.role = "Crash Testing";
-  testCard.email = "john.doe@testmail";
-  testCard.workEmail = "john.doe@workmail";
-  testCard.url = "http://johndoe";
-  testCard.workUrl = "http://acemecompany/johndoe";
+  testCard.email = [
+    "john.doe@testmail",
+    { email: "john.doe@testmail", label: "Custom Private Label" },
+  ]; // or testCard.email = "john.doe@testmail";
+
+  testCard.workEmail = [
+    "john.doe@workmail",
+    { email: "john.doe@workmail", label: "Custom Work Label" },
+  ]; // or testCard.workEmail = "john.doe@workmail";
+
+  testCard.url = [
+    "http://johndoe",
+    { url: "http://johndoeeee", label: "Custom URL Label" },
+  ]; // or testCard.url = "http://johndoe";
+
+  testCard.workUrl = [
+    "http://acemecompany/johndoe",
+    { url: "http://acemecompany/johndoeee", label: "Custom WORK URL Label" },
+  ]; // or testCard.workUrl = "http://acemecompany/johndoe";
 
   testCard.homeAddress.label = "Home Address";
   testCard.homeAddress.street = "123 Main Street";
@@ -110,6 +138,17 @@ describe("vCard", function () {
     },
   ];
 
+  testCard.otherPhone = [
+    {
+      label: "CUSTOM LABEL",
+      number: "312-555-1316",
+    },
+    {
+      label: "CUSTOM LABEL",
+      number: "312-555-1353",
+    },
+  ];
+
   testCard.source = "http://sourceurl";
   testCard.note = "John Doe's \nnotes;,";
 
@@ -122,10 +161,10 @@ describe("vCard", function () {
   testCard.socialUrls.tapni = "https://my.tapni.co";
   // OR IF YOU HAVE MULTIPLE SOCIAL URLS FROM SAME SOCIAL NETWORK
   testCard.socialUrls.tapni = [
-    "https://my.tapni.co",
-    "https://my.tapni.co",
-    "https://my.tapni.co",
-    "https://my.tapni.co",
+    "https://t.link",
+    "https://t.link",
+    "https://t.link",
+    "https://t.link",
   ];
 
   var vCardString = testCard.getFormattedString();
@@ -208,8 +247,23 @@ describe("vCard", function () {
     });
 
     it("should get address from other addresses", function (done) {
-      let stringSplit = lines[24].split(";");
+      let stringSplit = lines[30].split(";");
       assert(stringSplit[4] === "124 Main Street");
+      done();
+    });
+
+    it("should get custom type from other phones - phone 312-555-1316", function (done) {
+      assert(
+        getValueByFieldName("TEL;TYPE=CUSTOM LABEL", lines) === "312-555-1316"
+      );
+      done();
+    });
+
+    it("should get custom type from phones with custom label - phone 312-555-1212", function (done) {
+      assert(
+        getValueByFieldName("TEL;TYPE=CUSTOM WORK LABEL", lines) ===
+          "312-555-1212"
+      );
       done();
     });
   });
